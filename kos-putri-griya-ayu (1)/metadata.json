@@ -1,0 +1,6 @@
+{
+  "name": "Kos Putri Griya Ayu",
+  "description": "Website informasi Kos Putri Griya Ayu Kediri - Hunian putri yang aman, nyaman, dan strategis dekat kampus Mojoroto, Kediri.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

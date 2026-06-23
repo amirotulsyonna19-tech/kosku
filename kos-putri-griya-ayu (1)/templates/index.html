@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ kos.name }} - {{ kos.tagline }}</title>
+    <!-- Google Fonts for Elegant Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Link to dynamic Python-generated CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- ANNOUNCEMENT BROADCAST BANNER -->
+    <div class="announcement-banner" id="announcement-banner" style="background-color: var(--color-rose-gold-dark); color: var(--color-soft-pink-light); font-size: 0.85rem; padding: 0.75rem; text-align: center; font-weight: 600; border-bottom: 2px solid var(--color-soft-pink); position: relative; z-index: 100;">
+        🔔 Diskon khusus Rp 50.000 untuk pembayaran langsung 3 bulan pertama! <span id="admin-banner-edit-hint" style="display: none; font-size: 0.75rem; text-decoration: underline; margin-left: 10px; cursor: pointer; color: white;">(Edit ✏️)</span>
+    </div>
+
+    <!-- HEADER & NAVBAR -->
+    <header>
+        <nav class="navbar" id="navbar">
+            <a href="#" class="nav-brand">{{ kos.name }}</a>
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#fasilitas-harga">Fasilitas &amp; Harga</a></li>
+                <li><a href="#narahubung">Narahubung</a></li>
+                <li id="nav-portal-link" style="display: none;"><a href="#member-portal" style="color: var(--color-rose-gold); font-weight: bold;">👤 Portal</a></li>
+                <li><button id="login-nav-btn" class="btn" style="background-color: var(--color-rose-gold); color: white !important; padding: 0.5rem 1.25rem; border-radius: 999px; cursor: pointer; text-decoration: none; font-size: 0.95rem;">Portal Login</button></li>
+                <li id="logout-nav-item" style="display: none;"><button id="logout-btn" class="btn" style="background-color: #f1f5f9; color: #ef4444; padding: 0.5rem 1.25rem; border-radius: 999px; cursor: pointer; border: 1px solid #fee2e2; font-size: 0.95rem;">Keluar</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CREDENTIAL REMINDER CHEATSHEET BANNER -->
+    <div style="background-color: #FFFEEF; border-bottom: 1px solid #EBE39B; padding: 0.75rem 1rem; font-size: 0.75rem; color: #78350f;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <span>ℹ️ <strong>Sistem Login Pengunjung &amp; Admin Aktif:</strong> Gunakan akun uji coba instan berikut:</span>
+            <div>
+                <span style="background: #fef3c7; border: 1px solid #fdec8a; padding: 0.25rem 0.5rem; border-radius: 4px; margin-right: 0.5rem;">🔑 Admin: <strong>admin</strong> / PIN: <strong>9999</strong></span>
+                <span style="background: #fef3c7; border: 1px solid #fdec8a; padding: 0.25rem 0.5rem; border-radius: 4px;">🔑 Pencari: <strong>putri</strong> / PIN: <strong>1234</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION (DASHBOARD) -->
+    <section class="hero-section" id="dashboard">
+        <div class="hero-container">
+            <div class="hero-text">
+                <span style="display: inline-block; background-color: var(--color-soft-pink-light); border: 1px solid var(--color-accent-pink); color: var(--color-rose-gold-dark); font-size: 0.75rem; font-weight: bold; padding: 0.35rem 0.85rem; border-radius: 99px; margin-bottom: 1rem;">🌸 Khusus Mahasiswi &amp; Karyawati</span>
+                <h1>Hunian Impian Mahasiswi di Kediri</h1>
+                <p class="subtitle">{{ kos.tagline }}</p>
+                <p>{{ kos.description }}</p>
+                <div class="hero-cta">
+                    <a href="#fasilitas-harga" class="btn btn-primary">Lihat Kamar</a>
+                    <a href="#narahubung" class="btn btn-secondary">Hubungi Pengelola</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800" alt="Lobi Kos Putri Griya Ayu">
+                <span class="card-tag" style="background-color: var(--color-rose-gold-dark); top: 1.5rem; left: 1.5rem; right: auto;">Estetik &amp; Nyaman</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK STATS & SPECIFICATIONS GRID (FITUR 1: DASBOR) -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <!-- Total Kamar -->
+            <div class="stat-item">
+                <div class="stat-icon" aria-hidden="true">🔑</div>
+                <div class="stat-info">
+                    <div class="stat-val">{{ kos.rooms.total }} Kamar</div>
+                    <div class="stat-lbl">Kapasitas Total</div>
+                    <div class="stat-desc">Bangunan 2 Lantai kokoh</div>
+                </div>
+            </div>
+            <!-- Kamar Tersedia (Dynamic Live Count) -->
+            <div class="stat-item">
+                <div id="stat-avail-icon" class="stat-icon" style="background-color: #E2F9EB; border-color: #62E293;" aria-hidden="true">🟢</div>
+                <div class="stat-info" style="width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div id="stat-avail-val" class="stat-val" style="color: #1E6B34;">{{ kos.rooms.available }} Tersedia</div>
+                        <button id="sim-change-avail" style="font-size: 0.65rem; background-color: #d1fae5; color: #065f46; border: none; padding: 0.2rem 0.4rem; border-radius: 4px; cursor: pointer; font-weight: bold;">Simulasi 🔄</button>
+                    </div>
+                    <div class="stat-lbl">Status Unit</div>
+                    <div class="stat-desc">Update hari ini</div>
+                </div>
+            </div>
+            <!-- Lingkungan Aman -->
+            <div class="stat-item">
+                <div class="stat-icon" aria-hidden="true">🛡️</div>
+                <div class="stat-info">
+                    <div class="stat-val">Aman &amp; Putri</div>
+                    <div class="stat-lbl">Khusus Putri</div>
+                    <div class="stat-desc">Gerbang tertutup &amp; CCTV 24h</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW INTERACTIVE PORTAL VIEW (Flask Controlled client state) -->
+    <section class="section" id="member-portal" style="display: none; padding-top: 0; margin-top: -2rem; margin-bottom: 4rem;">
+        <div style="background-color: white; border-radius: 20px; border: 2px solid var(--color-soft-pink); overflow: hidden; box-shadow: 0 10px 30px rgba(183,110,121,0.06);">
+            
+            <!-- Banner Header -->
+            <div style="background: linear-gradient(135deg, var(--color-rose-gold-dark) 0%, var(--color-rose-gold) 100%); padding: 1.5rem 2rem; color: white; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <span id="portal-role-badge" style="background-color: rgba(255,255,255,0.2); font-size: 0.65rem; font-weight: bold; padding: 0.25rem 0.75rem; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.5px;">PROSPECTIVE TENANT</span>
+                    <h3 id="portal-welcome-text" style="font-size: 1.5rem; font-weight: bold; margin-top: 0.25rem;">Selamat Sesi, Putri!</h3>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <span id="portal-email-text" style="font-size: 0.8rem; opacity: 0.9;">putri@student.id</span>
+                    <button id="portal-logout-btn" class="btn" style="background-color: rgba(0,0,0,0.15); color: white; font-size: 0.75rem; padding: 0.4rem 0.8rem; border-radius: 6px;">Keluar</button>
+                </div>
+            </div>
+
+            <!-- Modules Content Container -->
+            <div style="padding: 2rem; background-color: var(--color-soft-pink-light);">
+                
+                <!-- PORTAL CALON DEPOSITOR / PENCARI KOS -->
+                <div id="tenant-dashboard" style="display: none;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                        
+                        <!-- Saved Lists wishlist and survey requests -->
+                        <div style="background: white; padding: 1.5rem; border-radius: 16px; border: 1px solid var(--color-soft-pink);">
+                            <h4 style="font-weight: bold; color: var(--color-rose-gold-dark); margin-bottom: 0.5rem; font-size: 1.1rem;">📝 Lembar Catatan Rencana Survei</h4>
+                            <p style="font-size: 0.75rem; color: #666; margin-bottom: 1.25rem;">Lacak detail pertanyaan, jadwal, dan preferensi survei Anda agar tidak lupa:</p>
+                            
+                            <textarea id="tenant-notes" style="width: 100%; height: 100px; padding: 0.75rem; border: 1px solid var(--color-soft-pink); border-radius: 8px; font-family: inherit; font-size: 0.85rem; line-height: 1.4; resize: none;" placeholder="Catat detail rencana survei disini..."></textarea>
+                            
+                            <div style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.7rem; color: #999;">Disimpan temporer di komputer Anda</span>
+                                <button id="save-notes-btn" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.5rem 1rem;">Simpan Catatan</button>
+                            </div>
+                        </div>
+
+                        <!-- Booking Status Module tracker -->
+                        <div style="background: white; padding: 1.5rem; border-radius: 16px; border: 1px solid var(--color-soft-pink); display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <h4 style="font-weight: bold; color: var(--color-rose-gold-dark); margin-bottom: 0.5rem; font-size: 1.1rem;">📍 Status Rencana Survei Kamar</h4>
+                                <p style="font-size: 0.75rem; color: #666; margin-bottom: 1rem;">Status survei Anda untuk kamar idaman Anda:</p>
+                                
+                                <div style="background-color: var(--color-soft-pink-light); padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--color-soft-pink); margin-bottom: 1rem;">
+                                    <span style="font-size: 0.7rem; color: #888;">Tipe Kamar Sasaran:</span>
+                                    <p id="target-room-text" style="font-weight: bold; color: var(--color-rose-gold-dark); font-size: 0.95rem; margin-top: 0.15rem;">Tipe Kamar 2 (AC) - Rp 800.000 / bln</p>
+                                </div>
+
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid #eee; margin-bottom: 1rem;">
+                                    <span style="font-size: 0.8rem; color: #555;">Persiapan:</span>
+                                    <span id="booking-status-tag" style="background-color: #fff3cd; color: #856404; font-size: 0.75rem; font-weight: bold; padding: 0.25rem 0.75rem; border-radius: 20px;">Menunggu Persetujuan</span>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button id="sim-approve-survey" class="btn" style="flex: 1; font-size: 0.8rem; padding: 0.5rem; background-color: #10b981; color: white;">Simulasi Setujui✓</button>
+                                <button id="wa-host-direct" class="btn" style="flex: 1.3; font-size: 0.8rem; padding: 0.5rem; background-color: var(--color-rose-gold); color: white;">Survei Lewat WA 💬</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- PORTAL PENGELOLA / ADMIN KOS -->
+                <div id="admin-dashboard" style="display: none;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                        
+                        <!-- Price Adjustments & Inventory Controls -->
+                        <div style="background: white; padding: 1.5rem; border-radius: 16px; border: 1px solid var(--color-soft-pink);">
+                            <h4 style="font-weight: bold; color: var(--color-rose-gold-dark); margin-bottom: 0.5rem; font-size: 1.1rem;">⚙️ Manajemen Kamar &amp; Tarif Sewa</h4>
+                            <p style="font-size: 0.75rem; color: #666; margin-bottom: 1.25rem;">Sesuaikan tarif atau ketersediaan kamar yang akan merubah tampilan web:</p>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                <!-- Non-AC rate adjustment -->
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; background-color: var(--color-pastel-grey); border-radius: 8px;">
+                                    <div>
+                                        <span style="font-size: 0.75rem; font-weight: bold;">Tipe 1 (Non-AC)</span>
+                                        <div id="adm-rate1-text" style="font-size: 0.7rem; color: #666;">Tarif saat ini: Rp 700.000</div>
+                                    </div>
+                                    <div style="display: flex; gap: 0.25rem;">
+                                        <button id="adm-inc-price1" style="cursor: pointer; padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid var(--color-rose-gold); background: white; font-size: 0.7rem; font-weight: bold;">+10rb</button>
+                                        <button id="adm-dec-price1" style="cursor: pointer; padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid var(--color-rose-gold); background: white; font-size: 0.7rem; font-weight: bold;">-10rb</button>
+                                    </div>
+                                </div>
+                                
+                                <!-- AC rate adjustment -->
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; background-color: var(--color-pastel-grey); border-radius: 8px;">
+                                    <div>
+                                        <span style="font-size: 0.75rem; font-weight: bold;">Tipe 2 (AC)</span>
+                                        <div id="adm-rate2-text" style="font-size: 0.7rem; color: #666;">Tarif saat ini: Rp 800.000</div>
+                                    </div>
+                                    <div style="display: flex; gap: 0.25rem;">
+                                        <button id="adm-inc-price2" style="cursor: pointer; padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid var(--color-rose-gold); background: white; font-size: 0.7rem; font-weight: bold;">+10rb</button>
+                                        <button id="adm-dec-price2" style="cursor: pointer; padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid var(--color-rose-gold); background: white; font-size: 0.7rem; font-weight: bold;">-10rb</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Simulated Logging Database activity -->
+                        <div style="background: white; padding: 1.5rem; border-radius: 16px; border: 1px solid var(--color-soft-pink); display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <h4 style="font-weight: bold; color: var(--color-rose-gold-dark); margin-bottom: 0.5rem; font-size: 1.1rem;">📊 Log Transaksi Database (Simulasi)</h4>
+                                <p style="font-size: 0.75rem; color: #666; margin-bottom: 0.75rem;">Mutasi log yang terpantau pada server Kos Griya Ayu:</p>
+                                
+                                <div id="admin-log-console" style="background-color: var(--color-pastel-grey); border: 1px solid #e1e1e3; border-radius: 8px; padding: 0.75rem; height: 100px; overflow-y: auto; font-family: monospace; font-size: 0.7rem; color: #444; line-height: 1.5;">
+                                    <div>[READY] Database terhubung via SQLite/ORM simulation</div>
+                                    <div>[OK] Sesi browser dimuat aman</div>
+                                </div>
+                            </div>
+                            
+                            <button id="clear-admin-logs" style="margin-top: 1rem; width: 100%; font-size: 0.75rem; border: none; background-color: #f3f4f6; color: #4b5563; padding: 0.5rem; border-radius: 6px; cursor: pointer;">Kosongkan Riwayat Logs</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INCLUSIONS & LOCATION GRID -->
+    <section class="section" style="padding-top: 0;">
+        <div class="info-container">
+            <!-- Lokasi Kos Giri Ayu -->
+            <div class="address-box">
+                <h3>Lokasi Strategis</h3>
+                <div class="location-card">
+                    <p><strong>📍 Alamat Lengkap:</strong></p>
+                    <p>{{ kos.location.full_address }}</p>
+                    <p><em>Sangat dekat dengan fasilitas kampus, kafe mahasiswa, minimarket, serta rumah makan di kawasan Mojoroto, Kediri.</em></p>
+                </div>
+                <!-- Interactive Google Map Simulator -->
+                <div class="gmaps-placeholder" id="map-simulator">
+                    <div class="map-icon">🗺️</div>
+                    <p><strong>Klik untuk Buka Google Maps</strong></p>
+                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.25rem;">Membuka rute ke Jl. Jaksa Agung Suprapto, Mojoroto, Kediri</p>
+                </div>
+            </div>
+
+            <!-- Inklusi Kamar & Fasilitas Bersama -->
+            <div class="inclusions-box">
+                <h3>Biaya Bulanan Sudah Termasuk:</h3>
+                <div class="inclusion-grid">
+                    {% for inclusion in kos.rooms.inclusions %}
+                    <div class="inc-card">
+                        🌸 {{ inclusion }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="note-card">
+                    <span class="note-icon">⚡</span>
+                    <div>
+                        <strong>Catatan Listrik:</strong><br>
+                        {{ kos.rooms.note }} Anda dapat mengisi daya token secara mandiri sesuai kapasitas pemakaian alat elektronik pribadi Anda.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FITUR 2: FASILITAS & HARGA -->
+    <section class="section" id="fasilitas-harga" style="background-color: var(--color-soft-pink-light); border-top: 1px solid var(--color-soft-pink); border-bottom: 1px solid var(--color-soft-pink); max-width: 100%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="section-header">
+                <h2>Pilihan Tipe Kamar</h2>
+                <p>Kami menawarkan 2 pilihan tipe kamar terbaik yang dapat disesuaikan dengan budget dan kenyamanan belajar Anda.</p>
+            </div>
+
+            <div class="pricing-grid">
+                {% for room in room_types %}
+                <div class="pricing-card" id="pricing-card-{{ room.id }}">
+                    <div class="card-img-wrapper">
+                        <img src="{{ room.image_url }}" alt="{{ room.name }}">
+                        <span class="card-tag">{{ room.status }}</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">{{ room.name }}</h3>
+                        <div class="card-price">
+                            <span class="amount" id="amount-{{ room.id }}">{{ room.price_formatted }}</span>
+                            <span class="period">/ bulan</span>
+                        </div>
+                        <h4 class="card-facilities-title">Fasilitas Kamar:</h4>
+                        <ul class="facility-list">
+                            {% for facility in room.facilities %}
+                            <li>{{ facility }}</li>
+                            {% endfor %}
+                        </ul>
+                        <button class="btn btn-primary card-btn booking-trigger" data-type="{{ room.name }}" data-price="{{ room.price_formatted }}">
+                            Pesan Sekarang 💬
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- FITUR 3: NARAHUBUNG FOOTER -->
+    <footer id="narahubung">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>{{ kos.name }}</h3>
+                <p>Hunian kos putri terbaik di Mojoroto, Kediri. Kami berkomitmen memberikan tempat tinggal yang higienis, tenang, aman, serta mendukung suasana fokus belajar mahasiswi.</p>
+                <p style="margin-top: 1.5rem; opacity: 0.8;">📍 {{ kos.location.district }}, {{ kos.location.city }}, {{ kos.location.province }}</p>
+                <p style="opacity: 0.8; margin-top: 0.5rem;">📞 WhatsApp Pemilik: {{ kos.contact.whatsapp_formatted }}</p>
+            </div>
+            
+            <div class="footer-socials">
+                <h4>Narahubung &amp; Media Sosial</h4>
+                <p style="opacity: 0.7; margin-bottom: 1rem; text-align: inherit;">Hubungi kami melalui platform media sosial resmi kami berikut untuk survei lokasi:</p>
+                <div class="social-links-grid">
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/{{ kos.contact.whatsapp }}" class="social-btn wa-btn booking-trigger" data-type="Pertanyaan Umum" data-price="Umum">
+                        <span>💬 WhatsApp Pemilik</span>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/{{ kos.contact.instagram }}" class="social-btn social-trigger" data-platform="Instagram" data-handle="{{ kos.contact.instagram }}">
+                        <span>📸 @{{ kos.contact.instagram }}</span>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="https://tiktok.com/@{{ kos.contact.tiktok }}" class="social-btn social-trigger" data-platform="TikTok" data-handle="{{ kos.contact.tiktok }}">
+                        <span>🎵 @{{ kos.contact.tiktok }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 {{ kos.name }} - Mojoroto, Kediri. All Rights Reserved. Created as a Python &amp; Flask Responsive Website.</p>
+        </div>
+    </footer>
+
+    <!-- DYNAMIC LOGIN OVERLAY MODAL -->
+    <div id="login-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center; padding: 1rem;">
+        <div style="background: white; width: 100%; max-width: 400px; border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.25); border: 2px solid var(--color-soft-pink); font-family: inherit;">
+            <div style="background-color: var(--color-rose-gold-dark); padding: 1.5rem; color: white; text-align: center; position: relative;">
+                <h3 style="font-size: 1.25rem; font-weight: bold;">Portal Login Anggota 🌸</h3>
+                <p style="font-size: 0.75rem; opacity: 0.8; margin-top: 0.25rem;">Masuk ke simulasi tenant &amp; panel pemilik</p>
+                <button id="close-modal-btn" style="position: absolute; right: 1rem; top: 1rem; background: none; border: none; color: white; font-size: 1.25rem; cursor: pointer;">✕</button>
+            </div>
+            <div style="padding: 1.5rem;">
+                <!-- Demo Acc Hint -->
+                <div style="background-color: #fffbeb; border: 1px solid #fef3c7; border-radius: 12px; padding: 0.75rem 1rem; font-size: 0.75rem; color: #78350f; margin-bottom: 1.25rem; line-height: 1.45;">
+                    <strong>💡 Demo Uji Coba Kilat:</strong><br>
+                    • Akun Cari Kos: <strong>putri</strong> | PIN: <strong>1234</strong><br>
+                    • Akun Utama Owner: <strong>admin</strong> | PIN: <strong>9999</strong>
+                </div>
+
+                <div id="login-error-alert" style="display: none; background-color: #fef2f2; border: 1px solid #fee2e2; color: #b91c1c; font-size: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 8px; margin-bottom: 1rem; font-weight: bold;">
+                    ID Pengguna atau PIN salah! Silakan coba lagi.
+                </div>
+
+                <form id="login-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; font-weight: bold; color: #555; margin-bottom: 0.25rem;">ID / Username:</label>
+                        <input type="text" id="login-username" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--color-soft-pink); border-radius: 10px; font-size: 0.9rem;" placeholder="Contoh: putri">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; font-weight: bold; color: #555; margin-bottom: 0.25rem;">PIN Keamanan (4 Angka):</label>
+                        <input type="password" id="login-pin" required maxlength="6" style="width: 100%; padding: 0.7rem; border: 1px solid var(--color-soft-pink); border-radius: 10px; font-size: 0.9rem;" placeholder="Contoh: 1234">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem; width: 100%; font-weight: bold; padding: 0.8rem; border-radius: 10px;">Masuk ke Server 🚪</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to dynamic Python-generated JavaScript -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
